@@ -113,26 +113,30 @@ s0.parentNode.insertBefore(s1,s0);
                 Change the OutputPath for <code>net8.0</code> to
                 <code>bin_dotnet</code>:</p>
                 <pre><code>&lt;PropertyGroup&gt;
-    &lt;AppendTargetFrameworkToOutputPath&gt;false&lt;/AppendTargetFrameworkToOutputPath&gt;
-    &lt;AppendRuntimeIdentifierToOutputPath&gt;false&lt;/AppendRuntimeIdentifierToOutputPath&gt;
-    &lt;!-- Set base intermediate output path, so NET Core build does not conflict with NetFX build. --&gt;
-    &lt;BaseIntermediateOutputPath&gt;obj\$(Configuration)\$(TargetFramework)\&lt;/BaseIntermediateOutputPath&gt;
+  &lt;AppendTargetFrameworkToOutputPath&gt;false&lt;/AppendTargetFrameworkToOutputPath&gt;
+  &lt;AppendRuntimeIdentifierToOutputPath&gt;false&lt;/AppendRuntimeIdentifierToOutputPath&gt;
 &lt;/PropertyGroup&gt;
-
+                
 &lt;PropertyGroup Condition=&quot;&#39;$(TargetFramework)&#39; != &#39;net48&#39;&quot;&gt;
-    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
-    &lt;OutputPath&gt;bin_dotnet&lt;/OutputPath&gt;
-    &lt;StartupObject&gt;Program&lt;/StartupObject&gt;
+  &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+  &lt;OutputPath&gt;bin_dotnet&lt;/OutputPath&gt;
+  &lt;StartupObject&gt;Program&lt;/StartupObject&gt;
 &lt;/PropertyGroup&gt;
 
 &lt;PropertyGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net48&#39;&quot;&gt;
-    &lt;OutputType&gt;Library&lt;/OutputType&gt;
-    &lt;OutputPath&gt;bin&lt;/OutputPath&gt;
-&lt;/PropertyGroup&gt;</code></pre>
-                <p>Then, for <code>net8.0</code>, import the WebFormsForCore packages
-                like so:</p>
+  &lt;OutputType&gt;Library&lt;/OutputType&gt;
+  &lt;OutputPath&gt;bin&lt;/OutputPath&gt;
+&lt;/PropertyGroup&gt;
+
+&lt;ItemGroup&gt;
+  &lt;Content Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
+  &lt;Reference Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
+  &lt;None Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
+  &lt;Compile Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+                <p>Then, for <code>net8.0</code>, import the WebFormsForCore packages like so:</p>
                 <pre><code>&lt;ItemGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net8.0&#39;&quot;&gt;
-    &lt;PackageReference Include=&quot;EstrellasDeEsperanza.WebFormsForCore.Web&quot; Version=&quot;1.2.4&quot; /&gt;
+  &lt;PackageReference Include=&quot;EstrellasDeEsperanza.WebFormsForCore.Web&quot; Version=&quot;1.2.4&quot; /&gt;
 &lt;/ItemGroup&gt;</code></pre>
                 <p>Remove the old <code>Reference</code> references or put them in a
                 condition only for <code>net48</code>.</p>
@@ -186,16 +190,16 @@ using Microsoft.Extensions.DependencyInjection;
 public class Program
 {
 
-    public static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
+  public static void Main(string[] args)
+  {
+    var builder = WebApplication.CreateBuilder(args);
 
-        var app = builder.Build();
+    var app = builder.Build();
         
-        app.UseWebForms();
+    app.UseWebForms();
             
-        app.Run();
-    }
+    app.Run();
+  }
 }
 #endif</code></pre>
                 <h2 id="conflicts-with-existing-packages">Conflicts with Existing
@@ -206,14 +210,14 @@ public class Program
                 replaces those dll’s. In order to prevent the import of the old dll’s
                 include the following in your csproj:</p>
                 <pre><code>&lt;Target Name=&quot;ChangeAliasesOfNugetRefs&quot; BeforeTargets=&quot;FindReferenceAssembliesForReferences;ResolveReferences&quot;&gt;
-    &lt;ItemGroup&gt;
-        &lt;!-- Do not import System.Configuration.ConfigurationManager version 8 --&gt;
-        &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Configuration.ConfigurationManager&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;\\[89][.0-9]+\\&#39;))&quot; /&gt;
-        &lt;!-- Do not import System.Web --&gt;
-        &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Web&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;\\dotnet\\&#39;))&quot; /&gt;
-        &lt;!-- Do not import System.Drawing --&gt;
-        &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Drawing&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;\\dotnet\\&#39;))&quot; /&gt;
-    &lt;/ItemGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;!-- Do not import System.Configuration.ConfigurationManager version 8 --&gt;
+    &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Configuration.ConfigurationManager&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;System\.Configuration\.ConfigurationManager\\[.0-9]+\\&#39;))&quot; /&gt;
+    &lt;!-- Do not import System.Web --&gt;
+    &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Web&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;\\dotnet\\&#39;))&quot; /&gt;
+    &lt;!-- Do not import System.Drawing --&gt;
+    &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Drawing&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;\\dotnet\\&#39;))&quot; /&gt;
+  &lt;/ItemGroup&gt;
 &lt;/Target&gt;</code></pre>
         </div>
     </div>

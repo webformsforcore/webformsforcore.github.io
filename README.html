@@ -9,10 +9,10 @@ Core also.</p>
 <h2 id="support">Support</h2>
 <p>If you need support porting your project to .NET Core &amp;
 WebFormsForCore, we provide support for 40$ per hour. Please contact us
-via the LiveChat button on this page or via
-<a id="whatsapp">WhatsApp</a>. There is also a tutorial on Youtube on <a
-href="https://youtu.be/Zyb4WBlaUwA">how to convert a sample WebForms
-application to WebFormsForCore</a>.</p>
+via the LiveChat button on this page or via <a
+href="https://wa.me/41775080285">WhatsApp</a>. There is also a tutorial
+on Youtube on <a href="https://youtu.be/Zyb4WBlaUwA">how to convert a
+sample WebForms application to WebFormsForCore</a>.</p>
 <h2 id="source-code">Source Code</h2>
 <p>You can find the source code of <a
 href="https://github.com/webformsforcore/WebFormsForCore">WebFormsForCore
@@ -45,8 +45,6 @@ Change the OutputPath for <code>net8.0</code> to
 <pre><code>&lt;PropertyGroup&gt;
     &lt;AppendTargetFrameworkToOutputPath&gt;false&lt;/AppendTargetFrameworkToOutputPath&gt;
     &lt;AppendRuntimeIdentifierToOutputPath&gt;false&lt;/AppendRuntimeIdentifierToOutputPath&gt;
-    &lt;!-- Set base intermediate output path, so NET Core build does not conflict with NetFX build. --&gt;
-    &lt;BaseIntermediateOutputPath&gt;obj\$(Configuration)\$(TargetFramework)\&lt;/BaseIntermediateOutputPath&gt;
 &lt;/PropertyGroup&gt;
 
 &lt;PropertyGroup Condition=&quot;&#39;$(TargetFramework)&#39; != &#39;net48&#39;&quot;&gt;
@@ -58,11 +56,18 @@ Change the OutputPath for <code>net8.0</code> to
 &lt;PropertyGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net48&#39;&quot;&gt;
     &lt;OutputType&gt;Library&lt;/OutputType&gt;
     &lt;OutputPath&gt;bin&lt;/OutputPath&gt;
-&lt;/PropertyGroup&gt;</code></pre>
+&lt;/PropertyGroup&gt;
+
+&lt;ItemGroup&gt;
+    &lt;Content Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
+    &lt;Reference Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
+    &lt;None Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
+    &lt;Compile Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
+&lt;/ItemGroup&gt;</code></pre>
 <p>Then, for <code>net8.0</code>, import the WebFormsForCore packages
 like so:</p>
 <pre><code>&lt;ItemGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net8.0&#39;&quot;&gt;
-    &lt;PackageReference Include=&quot;EstrellasDeEsperanza.WebFormsForCore.Web&quot; Version=&quot;1.0.0&quot; /&gt;
+    &lt;PackageReference Include=&quot;EstrellasDeEsperanza.WebFormsForCore.Web&quot; Version=&quot;1.2.5&quot; /&gt;
 &lt;/ItemGroup&gt;</code></pre>
 <p>Remove the old <code>Reference</code> references or put them in a
 condition only for <code>net48</code>.</p>
@@ -138,7 +143,7 @@ include the following in your csproj:</p>
 <pre><code>&lt;Target Name=&quot;ChangeAliasesOfNugetRefs&quot; BeforeTargets=&quot;FindReferenceAssembliesForReferences;ResolveReferences&quot;&gt;
     &lt;ItemGroup&gt;
         &lt;!-- Do not import System.Configuration.ConfigurationManager version 8 --&gt;
-        &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Configuration.ConfigurationManager&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;\\8[.0-9]+\\&#39;))&quot; /&gt;
+        &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Configuration.ConfigurationManager&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;System\.Configuration\.ConfigurationManager\\[.0-9]+\\&#39;))&quot; /&gt;
         &lt;!-- Do not import System.Web --&gt;
         &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Web&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;\\dotnet\\&#39;))&quot; /&gt;
         &lt;!-- Do not import System.Drawing --&gt;

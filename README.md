@@ -5,16 +5,15 @@ of the System.Web libraries of .NET Framework to .NET 8. With this library,
 you can run WebForms websites directly in ASP.NET Core, also on Linux. With this
 library it becomes easy to migrate your existing WebForms application to run
 on ASP.NET Core also.
-    
+
 ## Support
 If you need support porting your project to .NET Core & WebFormsForCore, we provide support for
-40$ per hour. Please contact us via the LiveChat button on this page or via <a id="whatsapp">WhatsApp</a>.
+40$ per hour. Please contact us via the LiveChat button on this page or via [WhatsApp](https://wa.me/41775080285).
 There is also a tutorial on Youtube on [how to convert a sample WebForms application to WebFormsForCore](https://youtu.be/Zyb4WBlaUwA). 
 
 ## Source Code
 You can find the source code of [WebFormsForCore on GitHub](https://github.com/webformsforcore/WebFormsForCore). It is 
-licensed under a MIT license. We welcome contributions, please have a look
-into the issues if you want to contribute.
+licensed under a MIT license. We welcome contributions, please have a look into the issues if you want to contribute.
 
 ## Donating
 If you like WebFormsForCore, and it helped you save a lot of work, please consider to
@@ -35,8 +34,6 @@ Change the OutputPath for `net8.0` to `bin_dotnet`:
 <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <!-- Set base intermediate output path, so NET Core build does not conflict with NetFX build. -->
-    <BaseIntermediateOutputPath>obj\$(Configuration)\$(TargetFramework)\</BaseIntermediateOutputPath>
 </PropertyGroup>
 
 <PropertyGroup Condition="'$(TargetFramework)' != 'net48'">
@@ -49,12 +46,19 @@ Change the OutputPath for `net8.0` to `bin_dotnet`:
     <OutputType>Library</OutputType>
     <OutputPath>bin</OutputPath>
 </PropertyGroup>
+
+<ItemGroup>
+    <Content Remove="bin_dotnet\**\*.*" />
+    <Reference Remove="bin_dotnet\**\*.*" />
+    <None Remove="bin_dotnet\**\*.*" />
+    <Compile Remove="bin_dotnet\**\*.*" />
+</ItemGroup>
 ``` 
 
 Then, for `net8.0`, import the WebFormsForCore packages like so:
 ```
 <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-    <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web" Version="1.2.4" />
+    <PackageReference Include="EstrellasDeEsperanza.WebFormsForCore.Web" Version="1.2.5" />
 </ItemGroup>
 ```
 Remove the old `Reference` references or put them in a condition only for `net48`.
@@ -115,7 +119,7 @@ System.Configuration.ConfigurationManager.dll, since WebFormsForCore replaces th
 <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
     <ItemGroup>
         <!-- Do not import System.Configuration.ConfigurationManager version 8 -->
-        <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Configuration.ConfigurationManager' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'\\8[.0-9]+\\'))" />
+        <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Configuration.ConfigurationManager' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'System\.Configuration\.ConfigurationManager\\[.0-9]+\\'))" />
         <!-- Do not import System.Web -->
         <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'\\dotnet\\'))" />
         <!-- Do not import System.Drawing -->

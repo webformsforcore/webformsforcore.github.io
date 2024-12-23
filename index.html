@@ -212,7 +212,7 @@ public class Program
                 <pre><code>&lt;Target Name=&quot;ChangeAliasesOfNugetRefs&quot; BeforeTargets=&quot;FindReferenceAssembliesForReferences;ResolveReferences&quot;&gt;
   &lt;ItemGroup&gt;
     &lt;!-- Do not import System.Configuration.ConfigurationManager version 8 --&gt;
-    &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Configuration.ConfigurationManager&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;System\.Configuration\.ConfigurationManager\\[.0-9]+\\&#39;))&quot; /&gt;
+    &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Configuration.ConfigurationManager&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;(?i)system\.configuration\.configurationmanager\\[.0-9]+\\&#39;))&quot; /&gt;
     &lt;!-- Do not import System.Web --&gt;
     &lt;ReferencePath Remove=&quot;%(Identity)&quot; Condition=&quot;&#39;%(FileName)&#39; == &#39;System.Web&#39; AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),&#39;\\dotnet\\&#39;))&quot; /&gt;
     &lt;!-- Do not import System.Drawing --&gt;

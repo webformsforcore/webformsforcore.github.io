@@ -85,6 +85,12 @@ s0.parentNode.insertBefore(s1,s0);
                 directly in ASP.NET Core, also on Linux. With this library it becomes
                 easy to migrate your existing WebForms application to run on ASP.NET
                 Core also.</p>
+
+                <p>We successfully ported the SolidCP Control Panel, a huge WebForms code
+                  base, to ASP.NET Core &amp; Linux with the aid of this library. The goal of running SolidCP 
+                  on Linux without porting everything to Blazor was also our motivation of creating
+                  WebFormsForCore.</p>
+
                 <h2 id="support">Support</h2>
                 <p>If you need support porting your project to .NET Core &amp;
                 WebFormsForCore, we provide support for 40$ per hour. Please contact us
@@ -92,12 +98,14 @@ s0.parentNode.insertBefore(s1,s0);
                 <a id="whatsapp">WhatsApp</a>. There is also a tutorial on Youtube on <a
                 href="https://youtu.be/wgg-FziIfNg">how to convert a sample WebForms
                 application to WebFormsForCore</a>.</p>
+                
                 <h2 id="source-code">Source Code</h2>
                 <p>You can find the source code of <a
                 href="https://github.com/webformsforcore/WebFormsForCore">WebFormsForCore
                 on GitHub</a>. It is licensed under a MIT license. We welcome
                 contributions, please have a look into the issues if you want to
                 contribute.</p>
+                
                 <h2 id="donating">Donating</h2>
                 <p>If you like WebFormsForCore, and it helped you save a lot of work,
                 please consider to <a
@@ -105,9 +113,11 @@ s0.parentNode.insertBefore(s1,s0);
                 GitHub</a> or <a
                 href="https://www.paypal.com/donate/?hosted_button_id=KQCGG3NDJRR2S">donate
                 to us with PayPal</a>.</p>
+                
                 <h2 id="usage">Usage</h2>
                 <p>If you have a WebForms project you want to convert to NET Core,
                 proceed as follows:</p>
+                
                 <p>First convert your Project to a SDK Project. Please keep a backup of
                 the old non SDK style project. Conversion can be done easiest by using a
                 converter like the migrate-2019 tool. To install that tool, run
@@ -147,8 +157,10 @@ s0.parentNode.insertBefore(s1,s0);
                 <pre><code>&lt;ItemGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net8.0&#39;&quot;&gt;
   &lt;PackageReference Include=&quot;EstrellasDeEsperanza.WebFormsForCore.Web&quot; Version=&quot;1.3.1&quot; /&gt;
 &lt;/ItemGroup&gt;</code></pre>
+                
                 <p>Remove the old <code>Reference</code> references or put them in a
                 condition only for <code>net48</code>.</p>
+                
                 <p>If your project also needs <code>System.Web.Extensions</code> or
                 <code>System.Web.Optimization</code> import the corresponding packages
                 also, like

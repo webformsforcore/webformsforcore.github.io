@@ -1,6 +1,6 @@
 # WebFormsForCore 
 ## WebForms for ASP.NET Core
-WebFormsForCore is a library to run WebForms apps on ASP.NET Core. This library provides a port
+WebFormsForCore is an OpenSource library to run WebForms apps on ASP.NET Core. This library provides a port
 of the System.Web libraries of .NET Framework to .NET 8. With this library,
 you can run WebForms websites directly in ASP.NET Core, also on Linux. With this
 library it becomes easy to migrate your existing WebForms application to run

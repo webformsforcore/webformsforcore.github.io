@@ -194,6 +194,9 @@ s0.parentNode.insertBefore(s1,s0);
   after build. This only works for C#, not for VisualBasic. Also, the
   visual designers in VisualStudio for web controls are not supported and
   won’t work.</p>
+
+  <p>Also, the Build package will strip incompatible designer attributes from classes in legacy .NET Framework assemblies after build,
+    that would otherwise cause the types load to fail.</p>
                   
 <p>Finally configure ASP.NET Core to use WebForms in the initialization code Program.cs like so:</p>
   

@@ -93,6 +93,8 @@ SDK project, you also need to import the package `EstrellasDeEsperanza.WebFormsF
 If you import this package, outdated `*.designer.cs` files will be created after build. This only works for C#, not for
 VisualBasic. Also, the visual designers in VisualStudio for web controls are not supported and won't work.
 
+Also, the Build package will strip incompatible designer attributes from classes in legacy .NET Framework assemblies after build, that would otherwise cause the types load to fail.
+
 Finally configure ASP.NET Core to use WebForms in the initialization code Program.cs like so:
 ```
 #if NETCOREAPP

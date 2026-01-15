@@ -51,6 +51,7 @@ Change the OutputPath for <code>net8.0</code> to
 <pre><code>&lt;PropertyGroup&gt;
     &lt;AppendTargetFrameworkToOutputPath&gt;false&lt;/AppendTargetFrameworkToOutputPath&gt;
     &lt;AppendRuntimeIdentifierToOutputPath&gt;false&lt;/AppendRuntimeIdentifierToOutputPath&gt;
+    &lt;IntermediateOutputPath&gt;$(BaseIntermediateOutputPath)$(Configuration)\$(TargetFramework.ToLowerInvariant())\&lt;/IntermediateOutputPath&gt;
 &lt;/PropertyGroup&gt;
 
 &lt;PropertyGroup Condition=&quot;&#39;$(TargetFramework)&#39; != &#39;net48&#39;&quot;&gt;

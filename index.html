@@ -198,8 +198,12 @@ s0.parentNode.insertBefore(s1,s0);
   visual designers in VisualStudio for web controls are not supported and
   won’t work.</p>
 
-  <p>Also, the Build package will strip incompatible designer attributes from classes in legacy .NET Framework assemblies after build,
-    that would otherwise cause the types load to fail.</p>
+  <p>Also, the Build package will strip incompatible designer attributes from classes
+    in legacy .NET Framework assemblies after build, that would otherwise cause the
+    types load to fail. This way, when you reference the Build package, you can use
+    third party libraries that reference System.Web. You might still encounter issues,
+    since the third party libraries will be compiled against .NET Framework and not
+    .NET Core.</p>
                   
 <p>Finally configure ASP.NET Core to use WebForms in the initialization code Program.cs like so:</p>
   

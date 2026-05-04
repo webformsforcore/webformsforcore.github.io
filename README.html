@@ -72,40 +72,40 @@
 <p>Then, for <code>net8.0</code>, import the WebFormsForCore packages
     like so:</p>
 <pre><code>&lt;ItemGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net8.0&#39;&quot;&gt;
-    &lt;PackageReference Include=&quot;EstrellasDeEsperanza.WebFormsForCore.Web&quot; Version=&quot;1.5.1&quot; /&gt;
+    &lt;PackageReference Include=&quot;WebFormsForCore.Web&quot; Version=&quot;1.5.3&quot; /&gt;
 &lt;/ItemGroup&gt;</code></pre>
 <p>Remove the old <code>Reference</code> references or put them in a
     condition only for <code>net48</code>.</p>
 <p>If your project also needs <code>System.Web.Extensions</code> or
     <code>System.Web.Optimization</code> import the corresponding packages
     also, like
-    <code>EstrellasDeEsperanza.WebFormsForCore.Web.Extensions</code> or
-    <code>EstrellasDeEsperanza.WebFormsForCore.Web.Optimization</code> etc.
+    <code>WebFormsForCore.Web.Extensions</code> or
+    <code>WebFormsForCore.Web.Optimization</code> etc.
     The following packages are available: -
     <code>System.Configuration</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.Configuration</code> -
+    <code>WebFormsForCore.Configuration</code> -
     <code>System.Web</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.Web</code> -
+    <code>WebFormsForCore.Web</code> -
     <code>System.Web.Services</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.Web.Services</code> -
+    <code>WebFormsForCore.Web.Services</code> -
     <code>System.Web.Extensions</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.Web.Extensions</code> -
+    <code>WebFormsForCore.Web.Extensions</code> -
     <code>System.Web.Optimization</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.Web.Optimization</code> -
+    <code>WebFormsForCore.Web.Optimization</code> -
     <code>System.Web.Mobile</code>:
-    <code>EstrellasDeEsperanza.Web.Mobile</code> -
+    <code>Web.Mobile</code> -
     <code>Microsoft.AspNet.Web.Optimization.WebForms</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.Web.Optimization.WebForms</code>
+    <code>WebFormsForCore.Web.Optimization.WebForms</code>
     - <code>WebGrease</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.WebGrease</code> -
+    <code>WebFormsForCore.WebGrease</code> -
     <code>System.Drawing</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.Drawing</code> -
+    <code>WebFormsForCore.Drawing</code> -
     <code>AjaxControlToolkit</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.AjaxControlToolkit</code> -
+    <code>WebFormsForCore.AjaxControlToolkit</code> -
     <code>AjaxControlToolkit.HtmlEditor.Sanitizer</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.AjaxControlToolkit.HtmlEditor.Sanitizer</code>
+    <code>WebFormsForCore.AjaxControlToolkit.HtmlEditor.Sanitizer</code>
     - <code>AjaxControlToolkit.StaticResources</code>:
-    <code>EstrellasDeEsperanza.WebFormsForCore.AjaxControlToolkit.StaticResources</code>
+    <code>WebFormsForCore.AjaxControlToolkit.StaticResources</code>
 </p>
 <p>System.Drawing only implements Attributes, so WebFormsForCore can run
     on Linux, where System.Drawing.Common.dll is missing.</p>
@@ -113,9 +113,9 @@
 <p>If you want WebFormsForCore to automatically create the
     <code>*.designer.cs</code> files for you, as it was in the old non SDK
     project, you also need to import the package
-    <code>EstrellasDeEsperanza.WebFormsForCore.Build</code> like so:
+    <code>WebFormsForCore.Build</code> like so:
 <pre><code>
-&lt;PackageReference Include=&quot;EstrellasDeEsperanza.WebFormsForCore.Build&quot; Version=&quot;1.5.1&quot; ExcludeAssets=&quot;runtime&quot; /&gt;
+&lt;PackageReference Include=&quot;WebFormsForCore.Build&quot; Version=&quot;1.5.3&quot; ExcludeAssets=&quot;runtime&quot; /&gt;
 </code></pre>
 If you import
 this package, outdated <code>*.designer.cs</code> files will be created

@@ -1,13 +1,14 @@
 # WebFormsForCore 
 ## WebForms for ASP.NET Core
 WebFormsForCore is an OpenSource library to run WebForms apps on ASP.NET Core. This library provides a port
-of the System.Web libraries of .NET Framework to .NET 8. With this library,
+of the System.Web libraries of .NET Framework to .NET 10. With this library,
 you can run WebForms websites directly in ASP.NET Core, also on Linux. With this
 library it becomes easy to migrate your existing WebForms application to run
 on ASP.NET Core also.
 
 We successfully ported the FuseCP Control Panel, a huge WebForms code base, to ASP.NET Core & Linux
-with the aid of this library. The goal of running FuseCP on Linux without porting everything to Blazor was also our motivation of creating WebFormsForCore.
+with the aid of this library. The goal of running FuseCP on Linux without porting everything to Blazor was
+also our motivation of creating WebFormsForCore. 
 
 ## Support
 If you need support porting your project to .NET Core & WebFormsForCore, we provide support for
@@ -30,9 +31,9 @@ project. Conversion can be done easiest by using a converter like the migrate-20
 tool, run `dotnet tool install --global Project2015To2017.Migrate2019.Tool`. Then go to the directory
 of your solution and run `dotnet migrate-2019 wizard` to convert your solution to an SDK project. If
 the converter complains about an unsupported project type, remove the `<ProjectTypeGuid>` property from
-the project first. After conversion change the target framework of your project to `net8.0`. You
+the project first. After conversion change the target framework of your project to `net10.0`. You
 might also keep `net48`, in order to dual run your project with NET Framework & NET Core.
-Change the OutputPath for `net8.0` to `bin_dotnet`:
+Change the OutputPath for `net10.0` to `bin_dotnet`:
 ```
 <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -59,10 +60,12 @@ Change the OutputPath for `net8.0` to `bin_dotnet`:
 </ItemGroup>
 ``` 
 
-Then, for `net8.0`, import the WebFormsForCore packages like so:
+We change the output path to `bin_dotnet` and set `AppendTargetFrameworkToOutputPath` and `AppendRuntimeIdentifierToOutputPath` to `false`, since WebFormsForCore can only work, if the OutputPath is a direct subfolder of the project, as in classic ASP.NET.
+
+Then, for `net10.0`, import the WebFormsForCore packages like so:
 ```
-<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-    <PackageReference Include="WebFormsForCore.Web" Version="1.5.5" />
+<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="WebFormsForCore.Web" Version="1.6.2" />
 </ItemGroup>
 ```
 Remove the old `Reference` references or put them in a condition only for `net48`.
@@ -76,6 +79,7 @@ corresponding packages also, like `WebFormsForCore.Web.Extensions` or
 - `System.Web.Extensions`: `WebFormsForCore.Web.Extensions`
 - `System.Web.Optimization`: `WebFormsForCore.Web.Optimization`
 - `System.Web.Mobile`: `WebFormsForCore.Web.Mobile`
+- `Microsft.AspNet.Web.Optimization`: `WebFormsForCore.Web.Optimization`
 - `Microsoft.AspNet.Web.Optimization.WebForms`: `WebFormsForCore.Web.Optimization.WebForms`
 - `WebGrease`: `WebFormsForCore.WebGrease`
 - `System.Drawing`: `WebFormsForCore.Drawing`
@@ -89,12 +93,23 @@ missing.
 If you want WebFormsForCore to automatically create the `*.designer.cs` files for you, as it was in the old non
 SDK project, you also need to import the package `WebFormsForCore.Build` like so:
 ```
-<PackageReference Include="WebFormsForCore.Build" Version="1.5.3" ExcludeAssets="runtime" />
+<PackageReference Include="WebFormsForCore.Build" Version="1.6.2" ExcludeAssets="runtime" />
 ```
-If you import this package, outdated `*.designer.cs` files will be created after build. This only works for C#, not for
-VisualBasic. Also, the visual designers in VisualStudio for web controls are not supported and won't work.
+If you import this package, outdated `*.designer.cs` files will be created after build. This only works for C#,
+not for VisualBasic. Also, the visual designers in VisualStudio for web controls are not supported and won't
+work.
 
-Also, the Build package will strip incompatible designer attributes from classes in legacy .NET Framework assemblies after build, that would otherwise cause the types load to fail. This way, when you reference the Build packages you can use third party libraries that reference System.Web. You might still encounter issues, since the third party libraries will be compiled against .NET Framework and not .NET Core.
+Also, the Build package will strip incompatible designer attributes from classes in legacy .NET Framework
+assemblies after build, that would otherwise cause the types load to fail. This way, when you reference the Build
+packages you can use third party libraries that reference System.Web. You might still encounter issues, since the
+third party libraries will be compiled against .NET Framework and not .NET Core.
+
+The Build package also provides an MSBuild Task `AspNetCoreCompiler` similar to the standard `AspNetCompiler`
+Task that wraps the .NET Framework `aspnet_compiler.exe`. In addition to the attributes of `AspNetCormpiler`,
+`AspNetCoreCompiler` supports the attribute `BinFolder` and `TargetFramework`. You can also specify a comma
+separated list of BinFolder's and TargetFramework's, if you project is dual running on .NET Framework and
+.NET Core with specific bin folders. You can also use this aspnetcore_compiler.exe form the command line by
+installing the dotnet tool `dotnet tool install -g WebFormsForCore.AspNetCompiler`.
 
 Finally configure ASP.NET Core to use WebForms in the initialization code Program.cs like so:
 ```
@@ -119,22 +134,17 @@ public class Program
 }
 #endif
 ```
-Usually this will cause WebFormsForCore to handle all WebForms requests, like aspx pages etc. Requests not specific to WebForms will be handled by ASP.NET Core. If you want all requests to be handled by WebForms, for example if your application uses routing and friendly urls, you might want to call 
+Usually this will cause WebFormsForCore to handle all WebForms requests, like aspx pages etc.
+Requests not specific to WebForms will be handled by ASP.NET Core. If you want all requests to
+be handled by WebForms, for example if your application uses routing and friendly urls, you might
+want to call 
+```
+app.UseWebForms(opt => opt.HandleAllRequestsWithWebForms())
+```
 
-```app.UseWebForms(opt => opt.HandleAllRequestsWithWebForms())` 
-Session State
-WebFormsForCore supports an WebForms SessionStateProvider using the ASP.NET Core Session
-State. To use it, add the following to your Web.config:
-```
-<system.web>
-    <sessionState mode="Custom" customProvider="AspNetCoreSession">
-        <providers>
-            <add name="AspNetCoreSession" type="System.Web.SessionState.AspNetCoreSessionProvider, System.Web" />
-        </providers>
-    </sessionState>
-</system.web>
-```
-and initialize the ASP.NET Core Session in your Program.cs like so:
+### Session State
+WebFormsForCore supports a WebForms SessionStateProvider using the ASP.NET Core Session
+State. To use it, initialize the ASP.NET Core Session in your Program.cs like so:
 ```
 var builder = WebApplication.CreateBuilder(args);
 
@@ -143,14 +153,13 @@ builder.Services.AddSession();
 
 var app = builder.Build();
 
-app.UseSession();
+app.UseAspNetCoreSessionProvider();
+eSession();
 
 app.UseWebForms();
 
 app.Run();
 ```
-
-
 
 ## Conflicts with Existing Packages
 Currently there might be some conflicts with the packages System.Web.dll, System.Drawing.dll &
@@ -159,7 +168,7 @@ System.Configuration.ConfigurationManager.dll, since WebFormsForCore replaces th
 ```
 <Target Name="ChangeAliasesOfNugetRefs" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
     <ItemGroup>
-        <!-- Do not import System.Configuration.ConfigurationManager version 8 -->
+        <!-- Do not import System.Configuration.ConfigurationManage -->
         <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Configuration.ConfigurationManager' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'(?i)system\.configuration\.configurationmanager\\[.0-9]+\\'))" />
         <!-- Do not import System.Web -->
         <ReferencePath Remove="%(Identity)" Condition="'%(FileName)' == 'System.Web' AND $([System.Text.RegularExpressions.Regex]::IsMatch(%(Identity),'\\dotnet\\'))" />

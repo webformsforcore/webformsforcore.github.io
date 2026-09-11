@@ -243,20 +243,10 @@ Usually this will cause WebFormsForCore to handle all WebForms requests, like as
 
 <h3>Session State</h3>
 <p>
-    WebFormsForCore supports a WebForms SessionStateProvider using the ASP.NET Core Session
-    State. To use it, add the following to your Web.config:
+    WebFormsForCore supports a WebForms SessionStateProvider using the ASP.NET Core session
+    state. To use it, initialize the ASP.NET Core session in your Program.cs like so.coe so:
 </p>
-
-            <pre><code>&lt;system.web&gt;
-  &lt;sessionState mode="Custom" customProvider="AspNetCoreSession"&gt;
-    &lt;providers&gt;
-      &lt;add name="AspNetCoreSession" type="System.Web.SessionState.AspNetCoreSessionProvider, System.Web" /&gt;
-    &lt;/providers&gt;
-  &lt;/sessionState&gt;
-&lt;/system.web&gt;</code></pre>
-
-            <p>and initialize the ASP.NET Core Session in your Program.cs like so:</p>
-            <pre><code>var builder = WebApplication.CreateBuilder(args);
+    <pre><code>var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
@@ -265,6 +255,7 @@ var app = builder.Build();
 
 app.UseSession();
 
+app.UseAspNetCoreSessionProvider();
 app.UseWebForms();
 
 app.Run();</code></pre>

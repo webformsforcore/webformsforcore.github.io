@@ -77,48 +77,65 @@ s0.parentNode.insertBefore(s1,s0);
             <img src="./Sunflower.svg" height="200" />
         </div>
         <div class="content">
-                <h1 id="webformsforcore">WebFormsForCore</h1>
-                <h2 id="webforms-for-asp.net-core">WebForms for ASP.NET Core</h2>
-                <p>WebFormsForCore is an OpenSource library to run WebForms apps on ASP.NET Core.
+            <h1 id="webformsforcore">WebFormsForCore</h1>
+            <h2 id="webforms-for-asp.net-core">WebForms for ASP.NET Core</h2>
+            <p>
+                WebFormsForCore is an OpenSource library to run WebForms apps on ASP.NET Core.
                 This library provides a port of the System.Web libraries of .NET
                 Framework to .NET 10. With this library, you can run WebForms websites
                 directly in ASP.NET Core, also on Linux. With this library it becomes
                 easy to migrate your existing WebForms application to run on ASP.NET
-                Core also.</p>
+                Core also.
+            </p>
 
-                <p>We successfully ported the FuseCP Control Panel, a huge WebForms code
-                  base, to ASP.NET Core &amp; Linux with the aid of this library. The goal of running FuseCP 
-                  on Linux without porting everything to Blazor was also our motivation of creating
-                  WebFormsForCore.</p>
+            <p>
+                We successfully ported the FuseCP Control Panel, a huge WebForms code
+                base, to ASP.NET Core &amp; Linux with the aid of this library. The goal of running FuseCP
+                on Linux without porting everything to Blazor was also our motivation of creating
+                WebFormsForCore.
+            </p>
 
-                <h2 id="support">Support</h2>
-                <p>If you need support porting your project to .NET Core &amp;
+            <h2 id="support">Support</h2>
+            <p>
+                If you need support porting your project to .NET Core &amp;
                 WebFormsForCore, we provide support for 40$ per hour. Please contact us
                 via the LiveChat button on this page or via
-                <a id="whatsapp">WhatsApp</a>. There is also a tutorial on Youtube on <a
-                href="https://youtu.be/wgg-FziIfNg">how to convert a sample WebForms
-                application to WebFormsForCore</a>.</p>
-                
-                <h2 id="source-code">Source Code</h2>
-                <p>You can find the source code of <a
-                href="https://github.com/webformsforcore/WebFormsForCore">WebFormsForCore
-                on GitHub</a>. It is licensed under a MIT license. We welcome
+                <a id="whatsapp">WhatsApp</a>. There is also a tutorial on Youtube on <a href="https://youtu.be/wgg-FziIfNg">
+                    how to convert a sample WebForms
+                    application to WebFormsForCore
+                </a>.
+            </p>
+
+            <h2 id="source-code">Source Code</h2>
+            <p>
+                You can find the source code of <a href="https://github.com/webformsforcore/WebFormsForCore">
+                    WebFormsForCore
+                    on GitHub
+                </a>. It is licensed under a MIT license. We welcome
                 contributions, please have a look into the issues if you want to
-                contribute.</p>
-                
-                <h2 id="donating">Donating</h2>
-                <p>If you like WebFormsForCore, and it helped you save a lot of work,
-                please consider to <a
-                href="https://github.com/sponsors/webformsforcore">sponsor us on
-                GitHub</a> or <a
-                href="https://www.paypal.com/donate/?hosted_button_id=KQCGG3NDJRR2S">donate
-                to us with PayPal</a>.</p>
-                
-                <h2 id="usage">Usage</h2>
-                <p>If you have a WebForms project you want to convert to NET Core,
-                proceed as follows:</p>
-                
-                <p>First convert your Project to a SDK Project. Please keep a backup of
+                contribute.
+            </p>
+
+            <h2 id="donating">Donating</h2>
+            <p>
+                If you like WebFormsForCore, and it helped you save a lot of work,
+                please consider to <a href="https://github.com/sponsors/webformsforcore">
+                    sponsor us on
+                    GitHub
+                </a> or <a href="https://www.paypal.com/donate/?hosted_button_id=KQCGG3NDJRR2S">
+                    donate
+                    to us with PayPal
+                </a>.
+            </p>
+
+            <h2 id="usage">Usage</h2>
+            <p>
+                If you have a WebForms project you want to convert to NET Core,
+                proceed as follows:
+            </p>
+
+            <p>
+                First convert your Project to a SDK Project. Please keep a backup of
                 the old non SDK style project. Conversion can be done easiest by using a
                 converter like the migrate-2019 tool. To install that tool, run
                 <code>dotnet tool install --global Project2015To2017.Migrate2019.Tool</code>.
@@ -130,8 +147,9 @@ s0.parentNode.insertBefore(s1,s0);
                 project to <code>net10.0</code>. You might also keep <code>net48</code>,
                 in order to dual run your project with NET Framework &amp; NET Core.
                 Change the OutputPath for <code>net10.0</code> to
-                <code>bin_dotnet</code>:</p>
-                <pre><code>&lt;PropertyGroup&gt;
+                <code>bin_dotnet</code>:
+            </p>
+            <pre><code>&lt;PropertyGroup&gt;
   &lt;AppendTargetFrameworkToOutputPath&gt;false&lt;/AppendTargetFrameworkToOutputPath&gt;
   &lt;AppendRuntimeIdentifierToOutputPath&gt;false&lt;/AppendRuntimeIdentifierToOutputPath&gt;
   &lt;IntermediateOutputPath&gt;$(BaseIntermediateOutputPath)$(Configuration)\$(TargetFramework.ToLowerInvariant())\&lt;/IntermediateOutputPath&gt;
@@ -154,69 +172,79 @@ s0.parentNode.insertBefore(s1,s0);
   &lt;None Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
   &lt;Compile Remove=&quot;bin_dotnet\**\*.*&quot; /&gt;
 &lt;/ItemGroup&gt;</code></pre>
-                <p>We change the output path to <code>bin_dotnet</code> and set <code>AppendTargetFrameworkToOutputPath</code> and <code>AppendRuntimeIdentifierToOutputPath</code> to <code>false</code>, since WebFormsForCore can only work, if the OutputPath is a direct subfolder of the project, as in classic ASP.NET.</p>
+            <p>We change the output path to <code>bin_dotnet</code> and set <code>AppendTargetFrameworkToOutputPath</code> and <code>AppendRuntimeIdentifierToOutputPath</code> to <code>false</code>, since WebFormsForCore can only work, if the OutputPath is a direct subfolder of the project, as in classic ASP.NET.</p>
 
-                <p>Then, for <code>net10.0</code>, import the WebFormsForCore packages like so:</p>
-                <pre><code>&lt;ItemGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net10.0&#39;&quot;&gt;
+            <p>Then, for <code>net10.0</code>, import the WebFormsForCore packages like so:</p>
+            <pre><code>&lt;ItemGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net10.0&#39;&quot;&gt;
   &lt;PackageReference Include=&quot;WebFormsForCore.Web&quot; Version=&quot;1.6.3&quot; /&gt;
 &lt;/ItemGroup&gt;</code></pre>
-                
-                <p>Remove the old <code>Reference</code> references or put them in a
-                condition only for <code>net48</code>.</p>
-                
-                <p>If your project also needs <code>System.Web.Extensions</code> or
+
+            <p>
+                Remove the old <code>Reference</code> references or put them in a
+                condition only for <code>net48</code>.
+            </p>
+
+            <p>
+                If your project also needs <code>System.Web.Extensions</code> or
                 <code>System.Web.Optimization</code> import the corresponding packages
                 also, like
                 <code>WebFormsForCore.Web.Extensions</code> or
                 <code>WebFormsForCore.Web.Optimization</code> etc.
-                The following packages are available:<br/>
-- <code>System.Configuration</code>: <code>WebFormsForCore.Configuration</code><br/>
-- <code>System.Web</code>: <code>WebFormsForCore.Web</code><br/>
-- <code>System.Web.Services</code>: <code>WebFormsForCore.Web.Services</code><br/>
-- <code>System.Web.Extensions</code>: <code>WebFormsForCore.Web.Extensions</code><br/>
-- <code>System.Web.Optimization</code>: <code>WebFormsForCore.Web.Optimization</code><br/>
-- <code>System.Web.Mobile</code>: <code>WebFormsForCore.Web.Mobile</code><br/>
-- <code>Microsoft.AspNet.Web.Optimization</code>: <code>WebFormsForCore.Web.Optimization</code><br/>
-- <code>Microsoft.AspNet.Web.Optimization.WebForms</code>: <code>WebFormsForCore.Web.Optimization.WebForms</code><br/>
-- <code>WebGrease</code>: <code>WebFormsForCore.WebGrease</code><br/>
-- <code>System.Drawing</code>: <code>WebFormsForCore.Drawing</code><br/>
-- <code>AjaxControlToolkit</code>: <code>WebFormsForCore.AjaxControlToolkit</code><br/>
-- <code>AjaxControlToolkit.HtmlEditor.Sanitizer</code>: <code>WebFormsForCore.AjaxControlToolkit.HtmlEditor.Sanitizer</code><br/>
-- <code>AjaxControlToolkit.StaticResources</code>: <code>WebFormsForCore.AjaxControlToolkit.StaticResources</code></p>
+                The following packages are available:<br />
+                - <code>System.Configuration</code>: <code>WebFormsForCore.Configuration</code><br />
+                - <code>System.Web</code>: <code>WebFormsForCore.Web</code><br />
+                - <code>System.Web.Services</code>: <code>WebFormsForCore.Web.Services</code><br />
+                - <code>System.Web.Extensions</code>: <code>WebFormsForCore.Web.Extensions</code><br />
+                - <code>System.Web.Optimization</code>: <code>WebFormsForCore.Web.Optimization</code><br />
+                - <code>System.Web.Mobile</code>: <code>WebFormsForCore.Web.Mobile</code><br />
+                - <code>Microsoft.AspNet.Web.Optimization</code>: <code>WebFormsForCore.Web.Optimization</code><br />
+                - <code>Microsoft.AspNet.Web.Optimization.WebForms</code>: <code>WebFormsForCore.Web.Optimization.WebForms</code><br />
+                - <code>WebGrease</code>: <code>WebFormsForCore.WebGrease</code><br />
+                - <code>System.Drawing</code>: <code>WebFormsForCore.Drawing</code><br />
+                - <code>AjaxControlToolkit</code>: <code>WebFormsForCore.AjaxControlToolkit</code><br />
+                - <code>AjaxControlToolkit.HtmlEditor.Sanitizer</code>: <code>WebFormsForCore.AjaxControlToolkit.HtmlEditor.Sanitizer</code><br />
+                - <code>AjaxControlToolkit.StaticResources</code>: <code>WebFormsForCore.AjaxControlToolkit.StaticResources</code>
+            </p>
 
-<p>System.Drawing only implements Attributes, so WebFormsForCore can run on Linux, where System.Drawing.Common.dll is missing.</p>
+            <p>System.Drawing only implements Attributes, so WebFormsForCore can run on Linux, where System.Drawing.Common.dll is missing.</p>
 
-<p>If you want WebFormsForCore to automatically create the
-  <code>*.designer.cs</code> files for you, as it was in the old non SDK
-  project, you also need to import the package
-  <code>WebFormsForCore.Build</code> like so:
-  <pre><code>
+            <p>
+                If you want WebFormsForCore to automatically create the
+                <code>*.designer.cs</code> files for you, as it was in the old non SDK
+                project, you also need to import the package
+                <code>WebFormsForCore.Build</code> like so:
+                <pre><code>
   &lt;PackageReference Include=&quot;WebFormsForCore.Build&quot; Version=&quot;1.6.3&quot; ExcludeAssets=&quot;runtime&quot; /&gt;
   </code></pre>
-  If you import
-  this package, outdated <code>*.designer.cs</code> files will be created
-  after build. This only works for C#, not for VisualBasic. Also, the
-  visual designers in VisualStudio for web controls are not supported and
-  won’t work.</p>
+                If you import
+                this package, outdated <code>*.designer.cs</code> files will be created
+                after build. This only works for C#, not for VisualBasic. Also, the
+                visual designers in VisualStudio for web controls are not supported and
+                won’t work.
+            </p>
 
-<p>Also, the Build package will strip incompatible designer attributes from classes
-    in legacy .NET Framework assemblies after build, that would otherwise cause the
-    types load to fail. This way, when you reference the Build package, you can use
-    third party libraries that reference System.Web. You might still encounter issues,
-    since the third party libraries will be compiled against .NET Framework and not
-    .NET Core.</p>
-                  
-<p>The Build package also provides an MSBuild Task <code>AspNetCoreCompiler</code> similar to the
-    standard <code>AspNetCompiler</code> Task that wraps the .NET Framework
-    <code>aspnet_compiler.exe</code>. In addition to the attributes of <code>AspNetCormpiler</code>,
-    <code>AspNetCoreCompiler</code> supports the attribute <code>BinFolder</code> and 
-    <code>TargetFramework</code>. You can also specify a comma separated list of BinFolder's and
-    TargetFramework's, if you project is dual running on .NET Framework and .NET Core with specific bin
-    folders. You can also use this aspnetcore_compiler.exe form the command line by installing the dotnet
-    tool <code>dotnet tool install -g WebFormsForCore.AspNetCompiler</code>.</p>
+            <p>
+                Also, the Build package will strip incompatible designer attributes from classes
+                in legacy .NET Framework assemblies after build, that would otherwise cause the
+                types load to fail. This way, when you reference the Build package, you can use
+                third party libraries that reference System.Web. You might still encounter issues,
+                since the third party libraries will be compiled against .NET Framework and not
+                .NET Core.
+            </p>
 
-<p>Finally configure ASP.NET Core to use WebForms in the initialization code Program.cs like so:</p>
-  
+            <p>
+                The Build package also provides an MSBuild Task <code>AspNetCoreCompiler</code> similar to the
+                standard <code>AspNetCompiler</code> Task that wraps the .NET Framework
+                <code>aspnet_compiler.exe</code>. In addition to the attributes of <code>AspNetCormpiler</code>,
+                <code>AspNetCoreCompiler</code> supports the attribute <code>BinFolder</code> and
+                <code>TargetFramework</code>. You can also specify a comma separated list of BinFolder's and
+                TargetFramework's, if you project is dual running on .NET Framework and .NET Core with specific bin
+                folders. You can also use this aspnetcore_compiler.exe form the command line by installing the dotnet
+                tool <code>dotnet tool install -g WebFormsForCore.AspNetCompiler</code>.
+            </p>
+
+            <p>Finally configure ASP.NET Core to use WebForms in the initialization code Program.cs like so:</p>
+
 <pre><code>#if NETCOREAPP
 
 using Microsoft.AspNetCore.Builder;
@@ -237,16 +265,16 @@ public class Program
   }
 }
 #endif</code></pre>
-Usually this will cause WebFormsForCore to handle all WebForms requests, like aspx pages etc. Requests not specific to
- WebForms will be handled by ASP.NET Core. If you want all requests to be handled by WebForms, for example if your
- application uses routing and friendly urls, you might want to call <code>app.UseWebForms(opt =&gt; opt.HandleAllRequestsWithWebForms())</code> 
+            Usually this will cause WebFormsForCore to handle all WebForms requests, like aspx pages etc. Requests not specific to
+            WebForms will be handled by ASP.NET Core. If you want all requests to be handled by WebForms, for example if your
+            application uses routing and friendly urls, you might want to call <code>app.UseWebForms(opt =&gt; opt.HandleAllRequestsWithWebForms())</code>
 
-<h3>Session State</h3>
-<p>
-    WebFormsForCore supports a WebForms SessionStateProvider using the ASP.NET Core session
-    state. To use it, initialize the ASP.NET Core session in your Program.cs like so.coe so:
-</p>
-    <pre><code>
+            <h3>Session State</h3>
+            <p>
+                WebFormsForCore supports a WebForms SessionStateProvider using the ASP.NET Core session
+                state. To use it, initialize the ASP.NET Core session in your Program.cs like so.coe so:
+            </p>
+            <pre><code>
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddDistributedMemoryCache();
@@ -260,12 +288,18 @@ Usually this will cause WebFormsForCore to handle all WebForms requests, like as
 
     app.Run();
 </code></pre>
+            <p>
+                This will store the session state in process. You can also use different ASP.NET Core session providers, like Redis, to have
+                a session state server.
+            </p>
 
-<h2 id="conflicts-with-existing-packages">Conflicts with Existing Packages</h2>
+            <h2 id="conflicts-with-existing-packages">Conflicts with Existing Packages</h2>
 
-<p>Currently there might be some conflicts with the packages System.Web.dll, System.Drawing.dll &amp;
-  System.Configuration.ConfigurationManager.dll, since WebFormsForCore
-  replaces those dll’s. In order to prevent the import of the old dll’s include the following in your csproj:</p>
+            <p>
+                Currently there might be some conflicts with the packages System.Web.dll, System.Drawing.dll &amp;
+                System.Configuration.ConfigurationManager.dll, since WebFormsForCore
+                replaces those dll’s. In order to prevent the import of the old dll’s include the following in your csproj:
+            </p>
 <pre><code>&lt;Target Name=&quot;ChangeAliasesOfNugetRefs&quot; BeforeTargets=&quot;FindReferenceAssembliesForReferences;ResolveReferences&quot;&gt;
   &lt;ItemGroup&gt;
     &lt;!-- Do not import System.Configuration.ConfigurationManager --&gt;

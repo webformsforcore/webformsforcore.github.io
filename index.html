@@ -158,7 +158,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                 <p>Then, for <code>net10.0</code>, import the WebFormsForCore packages like so:</p>
                 <pre><code>&lt;ItemGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net10.0&#39;&quot;&gt;
-  &lt;PackageReference Include=&quot;WebFormsForCore.Web&quot; Version=&quot;1.6.2&quot; /&gt;
+  &lt;PackageReference Include=&quot;WebFormsForCore.Web&quot; Version=&quot;1.6.3&quot; /&gt;
 &lt;/ItemGroup&gt;</code></pre>
                 
                 <p>Remove the old <code>Reference</code> references or put them in a
@@ -191,7 +191,7 @@ s0.parentNode.insertBefore(s1,s0);
   project, you also need to import the package
   <code>WebFormsForCore.Build</code> like so:
   <pre><code>
-  &lt;PackageReference Include=&quot;WebFormsForCore.Build&quot; Version=&quot;1.6.2&quot; ExcludeAssets=&quot;runtime&quot; /&gt;
+  &lt;PackageReference Include=&quot;WebFormsForCore.Build&quot; Version=&quot;1.6.3&quot; ExcludeAssets=&quot;runtime&quot; /&gt;
   </code></pre>
   If you import
   this package, outdated <code>*.designer.cs</code> files will be created
@@ -246,19 +246,20 @@ Usually this will cause WebFormsForCore to handle all WebForms requests, like as
     WebFormsForCore supports a WebForms SessionStateProvider using the ASP.NET Core session
     state. To use it, initialize the ASP.NET Core session in your Program.cs like so.coe so:
 </p>
-    <pre><code>var builder = WebApplication.CreateBuilder(args);
+    <pre><code>
+    var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
+    builder.Services.AddDistributedMemoryCache();
+    builder.Services.AddSession();
 
-var app = builder.Build();
+    var app = builder.Build();
 
-app.UseSession();
+    app.UseSession();
 
-app.UseAspNetCoreSessionProvider();
-app.UseWebForms();
+    app.UseWebForms(opt =&gt; opt.UseAspNetCoreSessionProvider());
 
-app.Run();</code></pre>
+    app.Run();
+</code></pre>
 
 <h2 id="conflicts-with-existing-packages">Conflicts with Existing Packages</h2>
 

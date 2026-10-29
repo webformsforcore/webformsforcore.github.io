@@ -144,9 +144,9 @@ s0.parentNode.insertBefore(s1,s0);
                 SDK project. If the converter complains about an unsupported project
                 type, remove the <code>&lt;ProjectTypeGuid&gt;</code> property from the
                 project first. After conversion change the target framework of your
-                project to <code>net10.0</code>. You might also keep <code>net48</code>,
+                project to <code>net11.0</code>. You might also keep <code>net48</code>,
                 in order to dual run your project with NET Framework &amp; NET Core.
-                Change the OutputPath for <code>net10.0</code> to
+                Change the OutputPath for <code>net11.0</code> to
                 <code>bin_dotnet</code>:
             </p>
             <pre><code>&lt;PropertyGroup&gt;
@@ -174,9 +174,9 @@ s0.parentNode.insertBefore(s1,s0);
 &lt;/ItemGroup&gt;</code></pre>
             <p>We change the output path to <code>bin_dotnet</code> and set <code>AppendTargetFrameworkToOutputPath</code> and <code>AppendRuntimeIdentifierToOutputPath</code> to <code>false</code>, since WebFormsForCore can only work, if the OutputPath is a direct subfolder of the project, as in classic ASP.NET.</p>
 
-            <p>Then, for <code>net10.0</code>, import the WebFormsForCore packages like so:</p>
-            <pre><code>&lt;ItemGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net10.0&#39;&quot;&gt;
-  &lt;PackageReference Include=&quot;WebFormsForCore.Web&quot; Version=&quot;1.6.8&quot; /&gt;
+            <p>Then, for <code>net11.0</code>, import the WebFormsForCore packages like so:</p>
+            <pre><code>&lt;ItemGroup Condition=&quot;&#39;$(TargetFramework)&#39; == &#39;net11.0&#39;&quot;&gt;
+  &lt;PackageReference Include=&quot;WebFormsForCore.Web&quot; Version=&quot;1.7.0-rc3&quot; /&gt;
 &lt;/ItemGroup&gt;</code></pre>
 
             <p>
@@ -214,7 +214,7 @@ s0.parentNode.insertBefore(s1,s0);
                 project, you also need to import the package
                 <code>WebFormsForCore.Build</code> like so:
                 <pre><code>
-  &lt;PackageReference Include=&quot;WebFormsForCore.Build&quot; Version=&quot;1.6.8&quot; ExcludeAssets=&quot;runtime&quot; /&gt;
+  &lt;PackageReference Include=&quot;WebFormsForCore.Build&quot; Version=&quot;1.7.0-rc3&quot; ExcludeAssets=&quot;runtime&quot; /&gt;
   </code></pre>
                 If you import
                 this package, outdated <code>*.designer.cs</code> files will be created
